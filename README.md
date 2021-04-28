@@ -1,8 +1,8 @@
-# <i>fi</i><b>Coin</b>
+# class++
 
-Repo in development (rebase)<br>
+Repo in development <br>
 
-Simply and modern cryptocurrency written in C++11 <br>
+App for create header/source classes for C++
 
 ## Author
  LakeFm (C) 2021 <br>
