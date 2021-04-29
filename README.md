@@ -2,7 +2,8 @@
 
 Repo in development <br>
 
-App for create header/source classes for C++
+App for create header/source classes for C++ <br>
+Written in C11
 
 ## Author
  LakeFm (C) 2021 <br>
