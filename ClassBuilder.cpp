@@ -1,6 +1,12 @@
+#include <fstream>
 #include "ClassBuilder.h"
 
 ClassBuilder::ClassBuilder(const std::string& classData,bool onlyH){
+    this->build(classData,onlyH);
+}
+
+
+void ClassBuilder::build(const std::string& classData,bool onlyH){
     this->headerOnly = onlyH;
     std::string tmp = classData;
     int a = (int)tmp.find_first_of('(');
@@ -150,4 +156,22 @@ std::string ClassBuilder::constructor(bool h,int type){
         }
     }
     return ss.str();
+}
+
+
+void ClassBuilder::toFile(const std::string& filename){
+    if(headerOnly) {
+        std::ofstream f(filename + ".h");
+        f << classData() << "\n";
+        f.close();
+    }else{
+        std::ofstream f;
+        f.open(filename + ".h");
+        f << header() << "\n";
+        f.close();
+        f.open(filename + ".cpp");
+        f << source() << "\n";
+        f.close();
+
+    }
 }
