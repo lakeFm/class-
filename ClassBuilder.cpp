@@ -2,12 +2,11 @@
 #include "ClassBuilder.h"
 
 ClassBuilder::ClassBuilder(const std::string& classData,bool onlyH){
-    this->build(classData,onlyH);
+    this->headerOnly = onlyH;
+    this->build(classData);
 }
 
-
-void ClassBuilder::build(const std::string& classData,bool onlyH){
-    this->headerOnly = onlyH;
+void ClassBuilder::build(const std::string& classData){
     std::string tmp = classData;
     int a = (int)tmp.find_first_of('(');
     this->className = tmp.substr(0,a);

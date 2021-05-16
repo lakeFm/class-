@@ -13,15 +13,13 @@ public:
     ClassBuilder(const std::string& classData,bool onlyH);
     void print();
     void toFile(const std::string& filename);
-    void build(const std::string& classData,bool onlyH);
-
+    void build(const std::string& classData);
 private:
     std::string classData();
     std::string header();
     std::string source();
     static std::string includeFile(const std::string& name);
     static std::string comment(const std::string& filename);
-
     void decode(std::string s);
     static Variable toVar(const std::string& s);
     std::string constructor(bool h,int type);
