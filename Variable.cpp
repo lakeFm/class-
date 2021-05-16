@@ -31,7 +31,7 @@ void Variable::setName(std::string mName){
 }
 std::string Variable::up(const std::string& str){
     std::string tmp = str;
-    if(tmp[0] > 'a' && tmp[0] < 'z')
+    if(tmp[0] >= 'a' && tmp[0] <= 'z')
         tmp[0] -= 32;
     return tmp;
 }

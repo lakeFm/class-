@@ -110,14 +110,14 @@ std::string ClassBuilder::constructor(bool h,int type){
     if(!h) {
         switch (type) {
             case 1:
-                ss << className << "(){\n";
+                ss << "\t" << className << "(){\n";
                 for (Variable v : vars) {
                     ss << "\t\tthis->" << v.getName() << " = " << v.null() << ";\n";
                 }
                 ss << "\t}\n";
                 break;
             case 2:
-                ss << className << "(";
+                ss << "\t" << className << "(";
                 for (int a = 0; a < vars.size(); a++) {
                     if (a == vars.size() - 1)ss << vars[a].mod(true);
                     else ss << vars[a].mod(true) << ",";
@@ -129,7 +129,7 @@ std::string ClassBuilder::constructor(bool h,int type){
                 ss << "\t}\n";
                 break;
             case 3:
-                ss << className << "(" << className << " &oth){\n";
+                ss << "\t" << className << "(" << className << " &oth){\n";
                 for (Variable v : vars) {
                     ss << "\t\tthis->" << v.getName() << " = oth." << v.fun(GET) << "();\n";
                 }
@@ -162,14 +162,17 @@ std::string ClassBuilder::constructor(bool h,int type){
 void ClassBuilder::toFile(const std::string& filename){
     if(headerOnly) {
         std::ofstream f(filename + ".h");
+        f.clear();
         f << classData() << "\n";
         f.close();
     }else{
         std::ofstream f;
         f.open(filename + ".h");
+        f.clear();
         f << header() << "\n";
         f.close();
         f.open(filename + ".cpp");
+        f.clear();
         f << source() << "\n";
         f.close();
 
