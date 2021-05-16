@@ -9,5 +9,5 @@ Written in C++11
     cd classCPP && mkdir build && cd build
     cmake .. && sudo make install
 
-## Author LakeFm (C) 2021 <br>
+## Author LakeFm (C) 2021 
  Assembled in CLion 2021.1.1
