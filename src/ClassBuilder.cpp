@@ -1,5 +1,5 @@
 #include <fstream>
-#include "ClassBuilder.h"
+#include "../include/ClassBuilder.h"
 
 ClassBuilder::ClassBuilder(const std::string& classData,bool onlyH){
     this->headerOnly = onlyH;
