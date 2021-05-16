@@ -6,7 +6,7 @@ Written in C++11
 ## Install 
 
     git clone https://github.com/lakeFm/classCPP.git
-    cd classPP && mkdir build && cd build
+    cd classCPP && mkdir build && cd build
     cmake .. && sudo make install
 
 ## Author LakeFm (C) 2021 <br>
