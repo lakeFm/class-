@@ -1,5 +1,41 @@
-//
-// Created by maks on 7/23/21.
-//
-
 #include "FunGenerator.h"
+
+FunGenerator::FunGenerator(const Variable& _v,cstr _c){
+    this->var = _v;
+    this->className = _c;
+}
+
+string FunGenerator::setter(){
+    bool m = var.getMinify();
+    std::stringstream ss;
+    ss << "void " <<  classC() << "set" << capitalizeName() << "(" << var.getType() << " " << "_"<< var.getName() <<  "){ ";
+    if(m) ss << "\n\t";
+    ss << "this->" << var.getName() << " = _" << var.getName() << ";";
+    if(m) ss << "\n";
+    ss << "}\n";
+    return ss.str();
+}
+
+string FunGenerator::getter(bool isConst){
+    bool m = var.getMinify();
+    std::stringstream ss;
+    ss << var.getType() << " " << classC() << "get" << capitalizeName() << "()" << (isConst ? " const" : "" ) << "{ ";
+    if(m) ss << "\n\t";
+    ss << "return this->" << var.getName() << ";";
+    if(m) ss << "\n";
+    ss << "}\n";
+    return ss.str();
+
+}
+
+string FunGenerator::capitalizeName(){
+    string tmp = var.getName();
+    tmp[0] = (char)std::toupper((int)tmp[0]);
+    return tmp;
+}
+string FunGenerator::classC(){
+    if(className.length() > 0)
+        return  className + "::";
+    else
+        return "";
+}
