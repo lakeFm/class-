@@ -1,14 +1,12 @@
-//
-// Created by maks on 7/23/21.
-//
-
 #ifndef CLASS_CONSTRUCTOR_H
 #define CLASS_CONSTRUCTOR_H
 
+#include <vector>
+#include "Variable.h"
 
 class Constructor {
 
 };
 
 
-#endif //CLASS_CONSTRUCTOR_H
+#endif

@@ -11,6 +11,7 @@ private:
     string type,name;
     bool minify;
 public:
+    Variable() = default;
     Variable(cstr _t,cstr _n);
     Variable(cstr _t,cstr _n,bool _m);
 
