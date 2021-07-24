@@ -16,7 +16,6 @@ public:
     string getter(bool isConst);
 
 private:
-    string capitalizeName();
     string classC();
 };
 

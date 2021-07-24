@@ -26,6 +26,7 @@ public:
     string getType() const;
     string getName() const;
     bool   getMinify() const;
+    string capitalize();
 
 };
 

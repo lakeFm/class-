@@ -22,3 +22,8 @@ bool   Variable::getMinify(){ return this->minify; }
 string Variable::getType()   const{ return this->type; }
 string Variable::getName()   const{ return this->name; }
 bool   Variable::getMinify() const{ return this->minify; }
+string Variable::capitalize(){
+    string tmp = this->getName();
+    tmp[0] = (char)std::toupper((int)tmp[0]);
+    return tmp;
+}

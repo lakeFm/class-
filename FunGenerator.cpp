@@ -8,7 +8,7 @@ FunGenerator::FunGenerator(const Variable& _v,cstr _c){
 string FunGenerator::setter(){
     bool m = var.getMinify();
     std::stringstream ss;
-    ss << "void " <<  classC() << "set" << capitalizeName() << "(" << var.getType() << " " << "_"<< var.getName() <<  "){ ";
+    ss << "void " <<  classC() << "set" << var.capitalize() << "(" << var.getType() << " " << "_"<< var.getName() <<  "){ ";
     if(m) ss << "\n\t";
     ss << "this->" << var.getName() << " = _" << var.getName() << ";";
     if(m) ss << "\n";
@@ -19,19 +19,13 @@ string FunGenerator::setter(){
 string FunGenerator::getter(bool isConst){
     bool m = var.getMinify();
     std::stringstream ss;
-    ss << var.getType() << " " << classC() << "get" << capitalizeName() << "()" << (isConst ? " const" : "" ) << "{ ";
+    ss << var.getType() << " " << classC() << "get" << var.capitalize() << "()" << (isConst ? " const" : "" ) << "{ ";
     if(m) ss << "\n\t";
     ss << "return this->" << var.getName() << ";";
     if(m) ss << "\n";
     ss << "}\n";
     return ss.str();
 
-}
-
-string FunGenerator::capitalizeName(){
-    string tmp = var.getName();
-    tmp[0] = (char)std::toupper((int)tmp[0]);
-    return tmp;
 }
 string FunGenerator::classC(){
     if(className.length() > 0)
