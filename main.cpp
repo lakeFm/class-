@@ -1,4 +1,4 @@
-#include "ClassGen.h"
+#include <ClassGen.h>
 
 int main(int a,char **b){
     Variable a1("int","a");
