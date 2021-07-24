@@ -1,6 +1,6 @@
 #include "Constructor.h"
 
-Constructor::Constructor(const std::vector<Variable>& _v,bool _h = false,cstr _n = ""){
+Constructor::Constructor(const std::vector<Variable>& _v,bool _h,cstr _n){
     this->cname = _n;
     this->h = _h;
     this->vars = _v;

@@ -1,6 +1,4 @@
-#include <vector>
-#include "FunGenerator.h"
-#include "Constructor.h"
+#include "ClassGen.h"
 
 int main(int a,char **b){
     Variable a1("int","a");
@@ -9,8 +7,7 @@ int main(int a,char **b){
     Variable a4("vector<int>","vec_i");
     std::vector<Variable> vars = {a1,a2,a3,a4};
     string n = "CUSTOM";
-    Constructor c(vars,false,n);
-    for(int _a = 0;_a < 3;_a++)
-        printf("%s\n",c.make(_a).c_str());
+    ClassGen c(n,vars,false);
+    printf("%s\n",c.gen().c_str());
     return 0;
 }
