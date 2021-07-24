@@ -23,16 +23,16 @@ It prints:
         int y;
     public:
         vec2(){ // Empty constructor
-            this->setX(0);
-            this->setY(0);
+            this->x = 0;
+            this->y = 0;
         }
         vec2(int _x,int _y){ //base constructor
-            this->setX(_x);
-            this->setY(_y);
+            this->x = _x;
+            this->y = _y;
         }
         vec2(const vec2& _c){ //copy constructor
-            this->setX(_c.getX());
-            this->setY(_c.getY());
+            this->x = _c.getX();
+            this->y = _c.getY();
         }
     
         int getX(){return this->x;}
