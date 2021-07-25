@@ -25,7 +25,17 @@ string FunGenerator::getter(bool isConst){
     if(m) ss << "\n";
     ss << "}\n";
     return ss.str();
+}
 
+string FunGenerator::setterF(){
+    std::stringstream ss;
+    ss << "void " <<  classC() << "set" << var.capitalize() << "(" << var.getType() <<  ");\n";
+    return ss.str();
+}
+string FunGenerator::getterF(bool isConst){
+    std::stringstream ss;
+    ss << var.getType() << " " << classC() << "get" << var.capitalize() << "()" << (isConst ? " const" : "" ) << ";\n";
+    return ss.str();
 }
 string FunGenerator::classC(){
     if(className.length() > 0)

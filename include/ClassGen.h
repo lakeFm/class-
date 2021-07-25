@@ -17,7 +17,7 @@ public:
         this->minify = _m;
     }
 
-    string gen(){
+    string gen(bool h = true){
         std::stringstream ss;
 
         ss << "#ifndef " << cap(name) << "_H\n";

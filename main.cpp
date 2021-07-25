@@ -1,13 +1,34 @@
 #include <ClassGen.h>
 
+string parseClass(cstr data){
+    return data.substr(0,data.find('('));
+}
+std::vector<string> split(const char *str, char c = ' '){
+    std::vector<string> result;
+    do{
+        const char *begin = str;
+        while(*str != c && *str) str++;
+        result.emplace_back(begin, str);
+    } while (0 != *str++);
+    return result;
+}
+std::vector<Variable> parseVars(cstr data){
+    std::vector<Variable> tmpV;
+    int s = (int)data.find('(');
+    string tmp = data.substr( s+1,data.size() - s - 2);
+    //printf("Data -> %s\n",tmp.c_str());
+    std::vector<string> tokens = split(tmp.c_str(),',');
+    for(cstr str : tokens){
+        std::vector<string> vTokens = split(str.c_str(),' ');
+        Variable tmpVar(vTokens[0],vTokens[1]);
+        tmpV.push_back(tmpVar);
+    }
+    return tmpV;
+}
 int main(int a,char **b){
-    Variable a1("int","a");
-    Variable a2("float","f");
-    Variable a3("rs::type","custom");
-    Variable a4("vector<int>","vec_i");
-    std::vector<Variable> vars = {a1,a2,a3,a4};
-    string n = "CUSTOM";
-    ClassGen c(n,vars,false);
-    printf("%s\n",c.gen().c_str());
+    string data = "vec2f(int x,int y,int tmp)";
+    string cname = parseClass(data);
+    std::vector<Variable> vars = parseVars(data);
+    printf("%s",ClassGen(cname,vars,false).gen().c_str());
     return 0;
 }

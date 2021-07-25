@@ -14,6 +14,8 @@ public:
 
     string setter();
     string getter(bool isConst);
+    string setterF();
+    string getterF(bool isConst);
 
 private:
     string classC();
