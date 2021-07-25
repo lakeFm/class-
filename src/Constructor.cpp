@@ -41,6 +41,29 @@ string Constructor::make(int t){
     }
     return ss.str();
 }
+string Constructor::makeF(int t){
+    std::stringstream ss;
+    switch (t) {
+        case 0:
+            ss << classC(h) << cname << "();\n";
+            break;
+        case 1:
+            ss << classC(h) << cname << "(";
+            for(int a = 0;a < vars.size();a++){
+                ss << vars[a].getType()  << " _" << vars[a].getName();
+                if (a < vars.size() - 1)
+                    ss << ", ";
+            }
+            ss << ");\n";
+            break;
+        case 2:
+            ss << classC(h) << cname << "(const " << cname << "& _v" << ");\n";
+            break;
+        default: break;
+
+    }
+    return ss.str();
+}
 int Constructor::type(cstr _t){
     if(_t == "int") return 0;
     if(_t == "long") return 1;

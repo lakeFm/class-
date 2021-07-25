@@ -1,9 +1,10 @@
 #include "FunGenerator.h"
 
-FunGenerator::FunGenerator(const Variable& _v,cstr _c,bool _m){
+FunGenerator::FunGenerator(const Variable& _v,cstr _c,bool _m,bool _h){
     this->var = _v;
     this->className = _c;
     this->m = _m;
+    this->h = _h;
 }
 string FunGenerator::setter(){
     std::stringstream ss;
@@ -34,7 +35,7 @@ string FunGenerator::getterF(bool isConst){
     return ss.str();
 }
 string FunGenerator::classC(){
-    if(className.length() > 0)
+    if(h)
         return  className + "::";
     else
         return "";

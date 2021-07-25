@@ -1,4 +1,5 @@
 #include <ClassGen.h>
+#include <iostream>
 
 string parseClass(cstr data){
     return data.substr(0,data.find('('));
@@ -16,7 +17,6 @@ std::vector<Variable> parseVars(cstr data){
     std::vector<Variable> tmpV;
     int s = (int)data.find('(');
     string tmp = data.substr( s+1,data.size() - s - 2);
-    //printf("Data -> %s\n",tmp.c_str());
     std::vector<string> tokens = split(tmp.c_str(),',');
     for(cstr str : tokens){
         std::vector<string> vTokens = split(str.c_str(),' ');
@@ -26,9 +26,21 @@ std::vector<Variable> parseVars(cstr data){
     return tmpV;
 }
 int main(int a,char **b){
-    string data = "vec2f(int x,int y,int tmp)";
+    string data;
+    if(a < 2){
+        char tmp[100];
+        printf("Enter class data -> ");
+        std::cin.getline(tmp,100);
+        data = tmp;
+    }else{
+        data = b[1];
+    }
     string cname = parseClass(data);
     std::vector<Variable> vars = parseVars(data);
-    printf("%s",ClassGen(cname,vars,true).gen(false).c_str());
+    ClassGen cl(cname,vars,true);
+    printf("\n");
+    printf("%s\n",cl.header().c_str());
+    printf("%s\n",cl.source().c_str());
+    cl.toFile(cname);
     return 0;
 }

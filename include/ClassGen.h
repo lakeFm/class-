@@ -12,7 +12,9 @@ private:
     bool minify;
 public:
     ClassGen(cstr _n,const std::vector<Variable>& _v,bool _m);
-    string gen(bool h = true);
+    string header();
+    string source();
+    void toFile(cstr);
 private:
     string cap(cstr _n);
 };

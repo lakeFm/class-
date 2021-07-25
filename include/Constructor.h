@@ -13,6 +13,7 @@ private:
 public:
     explicit Constructor(const std::vector<Variable>& _v,bool _h = false,cstr _n = "");
     string make(int t);
+    string makeF(int t);
 private:
     int type(cstr _t);
     string null(cstr t);
