@@ -29,6 +29,6 @@ int main(int a,char **b){
     string data = "vec2f(int x,int y,int tmp)";
     string cname = parseClass(data);
     std::vector<Variable> vars = parseVars(data);
-    printf("%s",ClassGen(cname,vars,false).gen().c_str());
+    printf("%s",ClassGen(cname,vars,true).gen(false).c_str());
     return 0;
 }

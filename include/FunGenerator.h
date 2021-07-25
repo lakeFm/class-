@@ -8,9 +8,10 @@
 class FunGenerator {
 private:
     Variable var;
+    bool m;
     string className;
 public:
-    explicit FunGenerator(const Variable& _v,cstr _c = "");
+    explicit FunGenerator(const Variable& _v,cstr _c = "",bool m = true);
 
     string setter();
     string getter(bool isConst);

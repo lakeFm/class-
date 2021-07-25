@@ -1,12 +1,11 @@
 #include "FunGenerator.h"
 
-FunGenerator::FunGenerator(const Variable& _v,cstr _c){
+FunGenerator::FunGenerator(const Variable& _v,cstr _c,bool _m){
     this->var = _v;
     this->className = _c;
+    this->m = _m;
 }
-
 string FunGenerator::setter(){
-    bool m = var.getMinify();
     std::stringstream ss;
     ss << "void " <<  classC() << "set" << var.capitalize() << "(" << var.getType() << " " << "_"<< var.getName() <<  "){ ";
     if(m) ss << "\n\t";
@@ -15,9 +14,7 @@ string FunGenerator::setter(){
     ss << "}\n";
     return ss.str();
 }
-
 string FunGenerator::getter(bool isConst){
-    bool m = var.getMinify();
     std::stringstream ss;
     ss << var.getType() << " " << classC() << "get" << var.capitalize() << "()" << (isConst ? " const" : "" ) << "{ ";
     if(m) ss << "\n\t";
@@ -26,7 +23,6 @@ string FunGenerator::getter(bool isConst){
     ss << "}\n";
     return ss.str();
 }
-
 string FunGenerator::setterF(){
     std::stringstream ss;
     ss << "void " <<  classC() << "set" << var.capitalize() << "(" << var.getType() <<  ");\n";
