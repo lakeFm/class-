@@ -13,37 +13,43 @@ Written in C++11
 
 Do in console (Linux):
 
-    class++ -h -c "vec2(int x,int y)"
+    class++ -hc "vec2(float x,float y)"
 
 It prints:
 
+    #ifndef VEC2_H
+    #define VEC2_H
+    
     class vec2{
     private:
-        int x;
-        int y;
+        float x;
+        float y;
     public:
-        vec2(){ // Empty constructor
-            this->x = 0;
-            this->y = 0;
+    
+        vec2(){
+            this->x = 0.0f;
+            this->y = 0.0f;
         }
-        vec2(int _x,int _y){ //base constructor
+        vec2(float _x, float _y){
             this->x = _x;
             this->y = _y;
         }
-        vec2(const vec2& _c){ //copy constructor
-            this->x = _c.getX();
-            this->y = _c.getY();
+        vec2(const vec2& _v){
+            this->x = _v.getX();
+            this->y = _v.getY();
         }
+        
+        void setX(float _x){ this->x = _x;}
+        float getX(){ return this->x;}
+        float getX() const{ return this->x;}
+        
+        void setY(float _y){ this->y = _y;}
+        float getY(){ return this->y;}
+        float getY() const{ return this->y;}
     
-        int getX(){return this->x;}
-        int getY(){return this->y;}
-
-        int getX() const{return this->x;}
-        int getY() const{return this->y;}
-
-        void setX(int _x){this->x = _x;}
-        void setY(int _y){this->y = _y;}
     };
+    
+    #endif
 
 ## Install 
 
@@ -52,4 +58,4 @@ It prints:
     cmake .. && sudo make install
 
 ## Author LakeFm (C) 2021 
- Assembled in CLion 2021.1.3
+ Assembled in CLion 2021.2

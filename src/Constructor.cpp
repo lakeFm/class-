@@ -10,14 +10,14 @@ string Constructor::make(int t){
     std::stringstream ss;
     switch (t) {
         case 0:
-            ss << classC(h) << cname << "(){\n";
+            ss << "\t" << classC(h) << cname << "(){\n";
             for(Variable v : vars){
-                ss << "\tthis->" << v.getName()  << " = " << null(v.getType()) << ";\n";
+                ss << "\t\tthis->" << v.getName()  << " = " << null(v.getType()) << ";\n";
             }
-            ss << "}\n";
+            ss << "\t}\n";
             break;
         case 1:
-            ss << classC(h) << cname << "(";
+            ss << "\t" << classC(h) << cname << "(";
             for(int a = 0;a < vars.size();a++){
                 ss << vars[a].getType()  << " _" << vars[a].getName();
                 if (a < vars.size() - 1)
@@ -25,16 +25,16 @@ string Constructor::make(int t){
             }
             ss << "){\n";
             for(Variable v : vars){
-                ss << "\tthis->" << v.getName()  << " = _" << v.getName() << ";\n";
+                ss << "\t\tthis->" << v.getName()  << " = _" << v.getName() << ";\n";
             }
-            ss << "}\n";
+            ss << "\t}\n";
             break;
         case 2:
-            ss << classC(h) << cname << "(const " << cname << "& _v" << "){\n";
+            ss << "\t" << classC(h) << cname << "(const " << cname << "& _v" << "){\n";
             for(Variable v : vars){
-                ss << "\tthis->" << v.getName()  << " = " << "_v.get" << v.capitalize() << "();\n";
+                ss << "\t\tthis->" << v.getName()  << " = " << "_v.get" << v.capitalize() << "();\n";
             }
-            ss << "}\n";
+            ss << "\t}\n";
             break;
         default: break;
 
@@ -45,10 +45,10 @@ string Constructor::makeF(int t){
     std::stringstream ss;
     switch (t) {
         case 0:
-            ss << classC(h) << cname << "();\n";
+            ss << "\t" << classC(h) << cname << "();\n";
             break;
         case 1:
-            ss << classC(h) << cname << "(";
+            ss << "\t" << classC(h) << cname << "(";
             for(int a = 0;a < vars.size();a++){
                 ss << vars[a].getType()  << " _" << vars[a].getName();
                 if (a < vars.size() - 1)
@@ -57,33 +57,24 @@ string Constructor::makeF(int t){
             ss << ");\n";
             break;
         case 2:
-            ss << classC(h) << cname << "(const " << cname << "& _v" << ");\n";
+            ss << "\t" << classC(h) << cname << "(const " << cname << "& _v" << ");\n";
             break;
         default: break;
 
     }
     return ss.str();
 }
-int Constructor::type(cstr _t){
-    if(_t == "int") return 0;
-    if(_t == "long") return 1;
-    if(_t == "float") return 2;
-    if(_t == "double") return 3;
-    if(_t == "char") return 4;
-    return -1;
-}
 string Constructor::null(cstr t){
-    switch(type(t)){
-        case 0: case 1:  return "0";
-        case 2: return "0.0f";
-        case 3: return "0.0";
-        case 4: return "' '";
-    }
+    if(t == "int")      return "0";
+    if(t == "long")     return "0";
+    if(t == "float")    return "0.0f";
+    if(t == "double")   return "0.0";
+    if(t == "char")     return "\'0\'";
+    if(t == "string")   return "\"\"";
     return "null";
 }
 string Constructor::classC(bool a){
     if(a)
         return  cname + "::";
-    else
-        return "";
+    return "";
 }

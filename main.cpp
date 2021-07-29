@@ -1,46 +1,66 @@
 #include <ClassGen.h>
 #include <iostream>
+#include <cstring>
+#include <ClassParser.h>
 
-string parseClass(cstr data){
-    return data.substr(0,data.find('('));
+bool getAns(char a){
+    if(a == 'y' || a == 'Y')
+        return true;
+    else
+        return false;
 }
-std::vector<string> split(const char *str, char c = ' '){
-    std::vector<string> result;
-    do{
-        const char *begin = str;
-        while(*str != c && *str) str++;
-        result.emplace_back(begin, str);
-    } while (0 != *str++);
-    return result;
-}
-std::vector<Variable> parseVars(cstr data){
-    std::vector<Variable> tmpV;
-    int s = (int)data.find('(');
-    string tmp = data.substr( s+1,data.size() - s - 2);
-    std::vector<string> tokens = split(tmp.c_str(),',');
-    for(cstr str : tokens){
-        std::vector<string> vTokens = split(str.c_str(),' ');
-        Variable tmpVar(vTokens[0],vTokens[1]);
-        tmpV.push_back(tmpVar);
+
+void manual(){
+    char tmp[100];
+    printf("Enter class data -> ");
+    std::cin.getline(tmp,100);
+    std::string data = tmp;
+    ClassParser p(data);
+    bool header,file;
+    char t;
+    printf("Header-only (y/Y/n/N): "); std::cin >> t; header = !getAns(t);
+    printf("Print in console (y/Y/n/N): "); std::cin >> t; file = !getAns(t);
+    if(file){
+        printf("Enter filename : "); std::cin >> data;
     }
-    return tmpV;
-}
-int main(int a,char **b){
-    string data;
-    if(a < 2){
-        char tmp[100];
-        printf("Enter class data -> ");
-        std::cin.getline(tmp,100);
-        data = tmp;
+    ClassGen cg;
+    cg.setName(p.getName());
+    cg.setVars(p.getVars());
+    if(file){
+        cg.toFile(data,header);
     }else{
-        data = b[1];
+        printf("\n%s\n",cg.header(header).c_str());
+        if(header) printf("%s\n",cg.source().c_str());
     }
-    string cname = parseClass(data);
-    std::vector<Variable> vars = parseVars(data);
-    ClassGen cl(cname,vars,true);
-    printf("\n");
-    printf("%s\n",cl.header().c_str());
-    printf("%s\n",cl.source().c_str());
-    cl.toFile(cname);
+}
+
+void argParser(int a,char** b){
+    ClassGen cg;
+    bool header,file;
+    char* tmp = b[1];
+    for(int i = 0; i < std::strlen(tmp);i++){
+        if(tmp[i] == 'h') header = true;
+        if(tmp[i] == 's') header = false;
+        if(tmp[i] == 'c') file   = true;
+        if(tmp[i] == 'f') file   = false;
+    }
+    if(file)
+        tmp = b[2];
+    else
+        tmp = b[3];
+    ClassParser p(tmp);
+    cg.setName(p.getName());
+    cg.setVars(p.getVars());
+    if(!file){
+        tmp = b[2];
+        cg.toFile(tmp,!header);
+    }else{
+        printf("%s\n",cg.header(!header).c_str());
+        if(!header) printf("%s\n",cg.source().c_str());
+    }
+}
+
+int main(int a,char **b){
+    a < 2 ? manual() : argParser(a,b);
     return 0;
 }

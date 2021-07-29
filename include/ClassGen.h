@@ -9,12 +9,17 @@ class ClassGen {
 private:
     string name;
     std::vector<Variable> vars;
-    bool minify;
+    bool minify = false;
 public:
+    ClassGen() = default;
     ClassGen(cstr _n,const std::vector<Variable>& _v,bool _m);
-    string header();
+    string header(bool);
     string source();
-    void toFile(cstr);
+    void toFile(cstr,bool);
+
+    void setName(cstr _n);
+    void setVars(const std::vector<Variable>& _v);
+    void setMinify(bool);
 private:
     string cap(cstr _n);
 };

@@ -7,7 +7,7 @@ ClassGen::ClassGen(cstr _n,const std::vector<Variable>& _v,bool _m){
     this->minify = _m;
 }
 
-string ClassGen::header(){
+string ClassGen::header(bool h){
     std::stringstream ss;
     ss << "#ifndef " << cap(name) << "_H\n";
     ss << "#define " << cap(name) << "_H\n\n";
@@ -19,15 +19,21 @@ string ClassGen::header(){
     ss << "public:\n\n";
     auto c = new Constructor(vars, false,name);
     for(int a = 0;a < 3;a++){
-        ss << c->makeF(a);
+        h ? ss << c->makeF(a) : ss << c->make(a);
     }
     ss << "\n";
 
     for(const Variable& v : vars){
-        FunGenerator f(v, name,minify,false);
-        ss << f.setterF();
-        ss << f.getterF(false);
-        ss << f.getterF(true) << "\n";
+        FunGenerator f(v, name,minify,h);
+        if(h){
+            ss << "\t" << f.setterF();
+            ss << "\t" << f.getterF(false);
+            ss << "\t" << f.getterF(true) << "\n";
+        }else{
+            ss << "\t" << f.setter();
+            ss << "\t" << f.getter(false);
+            ss << "\t" << f.getter(true) << "\n";
+        }
     }
     ss << "};\n\n";
     ss << "#endif\n";
@@ -51,10 +57,10 @@ string ClassGen::source(){
     return ss.str();
 }
 
-void ClassGen::toFile(cstr fname){
+void ClassGen::toFile(cstr fname,bool h){
     std::ofstream tmp(fname + ".h");
     tmp.clear();
-    tmp << header() << std::endl;
+    tmp << header(h) << std::endl;
     tmp.close();
     tmp.open(fname + ".cpp");
     tmp.clear();
@@ -68,4 +74,13 @@ string ClassGen::cap(cstr _n){
         tmp += (char)std::toupper((int)a);
     }
     return tmp;
+}
+void ClassGen::setName(cstr _n){
+    this->name = _n;
+}
+void ClassGen::setVars(const std::vector<Variable>& _v){
+    this->vars = _v;
+}
+void ClassGen::setMinify(bool _m){
+    this->minify = _m;
 }
