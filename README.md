@@ -58,5 +58,5 @@ It prints:
     cmake .. && sudo make install
 
 ## Author
-Maks Makuta  aka  ``` maksmakuta ``` (C) 2022 
+Maks Makuta  aka  ``` maksmakuta ``` (C) 2022    
 Assembled in CLion 2021.2
