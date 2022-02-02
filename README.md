@@ -57,5 +57,6 @@ It prints:
     cd classCPP && mkdir build && cd build
     cmake .. && sudo make install
 
-## Author LakeFm (C) 2021 
- Assembled in CLion 2021.2
+## Author
+Maks Makuta  aka  ``` maksmakuta ``` (C) 2022 
+Assembled in CLion 2021.2
